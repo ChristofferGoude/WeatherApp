@@ -1,0 +1,27 @@
+﻿@model WeatherApp.ViewModels.LocationName
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("The following error occured:")
+        <div>
+            @Html.LabelFor(model => model.LocationString):
+        </div>
+        <div>
+            @Html.EditorFor(model => model.LocationString, new { @class = "query" })
+            <input type="submit" value="Skicka" />
+            @Html.ValidationMessageFor(model => model.LocationString)
+        </div>   
+    }
+</div>
+<div class="info">
+    <h3>Welcome!</h3>
+    <p>This is a small application where you can search for weather information from all around the world.</p>
+    <p>All you need to do is enter the name of a city in the searchbar above, the application will handle the rest!</p>
+    <p>If you want to know how this information is gathered, check out the header at the top of the page.</p>
+</div>

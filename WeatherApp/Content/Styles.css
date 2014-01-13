@@ -1,0 +1,197 @@
+﻿html {
+    overflow-y:scroll;
+}
+
+body {
+    color: #232323;
+    background-color: #fff;
+    background-image:url("/Media/Pics/body_bg.png");
+    background-repeat:repeat;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+h1, h2, h3, h4 {
+    display:inline-block;
+    margin: 10px 0 0 0;
+    padding: 0;
+}
+
+p {
+    font-weight: 400;
+    margin:10px 0;
+}
+
+a {
+    text-decoration:none;
+    color:#e29172;
+}
+
+ul {
+    list-style:none;
+    padding-left:0;
+}
+
+a:hover {
+    color:#ff682e;
+}
+
+form {
+    margin:15px 0 0 0;
+}
+
+input {
+    display:inline-block;
+    border-radius:2px;
+}
+
+input:focus {
+    outline:none;
+}
+
+input[type="text"] {
+    vertical-align:top;
+    height:28px !important;
+    margin:0 10px 0 0;
+    float:left;
+    width:300px;
+    border:1px solid #ddd;
+}
+
+input[type="text"]:focus {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(226, 145, 114, 0.5);
+    -moz-box-shadow:    0px 0px 5px 0px rgba(226, 145, 114, 0.5);
+    box-shadow:         0px 0px 5px 0px rgba(226, 145, 114, 0.5);
+}
+
+input[type="submit"] {
+    height:30px !important;
+    border:none;
+    color:#ddd;
+    background-color:#232323;
+    margin:0 10px 0 0;
+    padding:0 10px;
+}
+
+input[type="submit"]:hover {
+    background-color:#808080;
+}
+
+/* Custom ID's
+---------------------------------------------------------- */
+#header {
+    position:absolute;
+    top:0;
+    width:100%;
+    background-color:#232323;
+    color:#ddd;
+}
+
+#header p {
+    font-size:12px;
+    text-align:center;   
+    letter-spacing:1px;  
+}
+
+#content {
+    margin:50px 0;
+}
+
+/* Custom classes
+---------------------------------------------------------- */
+.wrapper {
+    width:960px;
+    height:100%;
+    margin:0 auto;
+}
+
+.info {
+    height:auto;
+    background-color:#fff;
+    margin:15px 0;
+    padding:15px;
+    border-radius:2px;
+}
+
+.weatherItem {
+    float:left;
+    background-color:#fff;
+    height:auto;
+    min-height:300px;
+    width:150px;
+    margin:0 6px 15px 6px;
+    padding:15px;
+    border-radius:2px;
+}
+
+.floatleft {
+    margin:0;
+    padding:0;
+    float: left;
+}
+
+.floatright {
+    margin:0;
+    padding:0;
+    float: right;
+}
+
+.corrector {
+    margin:15px 0;
+}
+
+.centered {
+    display:block;
+    text-align:center;
+}
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #e29172;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #e29172;
+}
+
+.validation-summary-errors {
+    color: #e29172;
+}
+
+.validation-summary-valid {
+    display: none;
+}
