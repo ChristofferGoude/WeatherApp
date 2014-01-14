@@ -7,7 +7,12 @@ using System.Web;
 
 namespace WeatherApp.Models
 {
-    public class Location
+    [MetadataType(typeof(Location_MetaData))]
+    public partial class Location
+    {
+    }
+
+    public class Location_MetaData
     {
         public int LocationID { get; set; }
         public string Lat { get; set; }

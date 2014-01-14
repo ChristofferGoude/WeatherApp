@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/Normalize.css")
+    @Styles.Render("~/Content/Styles.css")
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div id="header">
+        <div class="wrapper">
+            <p>Powered by API's from <a href="http://geonames.org" target="_blank">Geonames</a> 
+               and <a href="http://openweathermap.org" target="_blank">Open Weather Map</a>. 
+               For more information about these API's, please visit their respective websites.
+            </p>
+        </div>
+    </div>
+    <div id="content">
+        <div class="wrapper">
+            <img src="/Media/Pics/title.png" width="960" height="100" alt="A World Of Weather" />
+            @RenderBody()
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

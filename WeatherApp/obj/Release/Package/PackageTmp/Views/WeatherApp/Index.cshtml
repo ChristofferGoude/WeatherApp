@@ -1,0 +1,23 @@
+﻿@model List<WeatherApp.Models.WeatherInfo>
+
+@{
+    ViewBag.Title = "Result";
+}
+
+@if (Model != null)
+{
+    <div class="corrector">
+        @foreach (var item in Model)
+        {
+            <div class="weatherItem">    
+                <h3>@item.Location</h3>
+                <p><b>Date: </b>@item.Time</p>
+                <p><b>Temp: </b>@item.Temperature° C</p>
+                <p><b>Conditions: </b></p>
+                <p>@item.Description</p>
+                <p><img src="@item.Icon" /></p>
+            </div>
+        }
+    </div>
+    @Html.Partial("_Return")
+}

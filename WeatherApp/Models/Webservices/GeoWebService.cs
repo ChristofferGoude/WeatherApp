@@ -26,7 +26,7 @@ namespace WeatherApp.Models.Webservices
                 checkedLocation.LocationID = Convert.ToInt32(xmlNodeList[0]["geonameId"].InnerText);
                 checkedLocation.Lat = xmlNodeList[0]["lat"].InnerText;
                 checkedLocation.Lng = xmlNodeList[0]["lng"].InnerText;
-                checkedLocation.City = location.LocationString;
+                checkedLocation.Location1 = location.LocationString;
             }
             catch (XmlException)
             {

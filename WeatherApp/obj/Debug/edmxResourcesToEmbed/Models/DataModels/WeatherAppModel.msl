@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="WeatherAppEntities">
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="Models.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="Location1" ColumnName="Location" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WeatherInfoes">
+      <EntityTypeMapping TypeName="Models.WeatherInfo">
+        <MappingFragment StoreEntitySet="WeatherInfo">
+          <ScalarProperty Name="WeatherInfoID" ColumnName="WeatherInfoID" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Temp" ColumnName="Temp" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="Models.WeatherInfo">
+        <ModificationFunctionMapping>
+          <UpdateFunction FunctionName="Models.Store.UpdateWeather">
+            <ScalarProperty Name="Icon" ParameterName="Icon" Version="Current" />
+            <ScalarProperty Name="Temp" ParameterName="Temp" Version="Current" />
+            <ScalarProperty Name="Description" ParameterName="Description" Version="Current" />
+            <ScalarProperty Name="Time" ParameterName="Time" Version="Current" />
+            <ScalarProperty Name="LocationID" ParameterName="LocationID" Version="Current" />
+          </UpdateFunction>
+          <DeleteFunction FunctionName="Models.Store.RemoveWeather">
+            <ScalarProperty Name="LocationID" ParameterName="LocationID" />
+          </DeleteFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

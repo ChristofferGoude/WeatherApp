@@ -30,7 +30,7 @@ namespace WeatherApp.Models.Webservices
 
                 //Set all weatherinformation
                 weatherItem.LocationID = location.LocationID;
-                weatherItem.Location = location.City;
+                weatherItem.Location = location;
                 weatherItem.Time = item.Attributes["day"].Value;
                 weatherItem.Description = item["symbol"].Attributes["name"].Value;
                 weatherItem.Icon = String.Format("http://openweathermap.org/img/w/{0}.png", item["symbol"].Attributes["var"].Value);
@@ -38,15 +38,15 @@ namespace WeatherApp.Models.Webservices
                 //Check to see if the temperature for mid-day period exists. If not, take next one, and so on
                 if (item["temperature"].Attributes["day"].Value != null)
                 {
-                    weatherItem.Temperature = item["temperature"].Attributes["day"].Value;
+                    weatherItem.Temp = item["temperature"].Attributes["day"].Value;
                 }
                 else if (item["temperature"].Attributes["eve"].Value != null)
                 {
-                    weatherItem.Temperature = item["temperature"].Attributes["eve"].Value;
+                    weatherItem.Temp = item["temperature"].Attributes["eve"].Value;
                 }
                 else
                 {
-                    weatherItem.Temperature = item["temperature"].Attributes["morn"].Value;
+                    weatherItem.Temp = item["temperature"].Attributes["morn"].Value;
                 }
                 
                 

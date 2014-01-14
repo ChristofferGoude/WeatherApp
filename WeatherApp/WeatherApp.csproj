@@ -44,6 +44,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -127,7 +129,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataModels\Location.cs">
+      <DependentUpon>WeatherAppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModels\WeatherAppModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeatherAppModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModels\WeatherAppModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeatherAppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModels\WeatherAppModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeatherAppModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModels\WeatherInfo.cs">
+      <DependentUpon>WeatherAppModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Repository\IRepository.cs" />
+    <Compile Include="Models\Repository\Repository.cs" />
     <Compile Include="Models\WeatherInfo.cs" />
     <Compile Include="Models\Webservices\GeoWebService.cs" />
     <Compile Include="Models\Webservices\WeatherWebService.cs" />
@@ -193,6 +218,25 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Styles.css" />
+    <EntityDeploy Include="Models\DataModels\WeatherAppModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WeatherAppModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DataModels\WeatherAppModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WeatherAppModel.edmx</DependentUpon>
+      <LastGenOutput>WeatherAppModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DataModels\WeatherAppModel.edmx.diagram">
+      <DependentUpon>WeatherAppModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\DataModels\WeatherAppModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WeatherAppModel.edmx</DependentUpon>
+      <LastGenOutput>WeatherAppModel.cs</LastGenOutput>
+      <CustomToolNamespace>WeatherApp.Models</CustomToolNamespace>
+    </Content>
+    <None Include="Properties\PublishProfiles\WeatherApp.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -232,6 +276,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace WeatherApp.Models
 {
-    public class WeatherInfo
+    [MetadataType(typeof(WeatherInfo_MetaData))]
+    public partial class WeatherInfo
+    {
+    }
+
+    public class WeatherInfo_MetaData
     {
         public int WeatherInfoID { get; set; }
         public int LocationID { get; set; }

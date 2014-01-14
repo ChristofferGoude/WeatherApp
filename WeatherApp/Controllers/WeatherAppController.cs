@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WeatherApp.Models;
+using WeatherApp.Models.Repository;
 using WeatherApp.Models.Webservices;
 using WeatherApp.ViewModels;
 
@@ -11,15 +12,19 @@ namespace WeatherApp.Controllers
 {
     public class WeatherAppController : Controller
     {
+        private IRepository _repository;
         private GeoWebService locationFinder;
         private WeatherWebService weatherFinder;
         private Location checkedLocation;
 
         public WeatherAppController()
+            : this(new Repository())
         {
-            locationFinder = new GeoWebService();
-            weatherFinder = new WeatherWebService();
-            checkedLocation = new Location();
+        }
+
+        internal WeatherAppController(IRepository repository)
+        {
+            _repository = repository;
         }
 
         // GET: /WeatherApp/
@@ -39,6 +44,9 @@ namespace WeatherApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    locationFinder = new GeoWebService();
+                    weatherFinder = new WeatherWebService();
+                    checkedLocation = new Location();
                     checkedLocation = locationFinder.GetLocationInfo(location);
 
                     List<WeatherInfo> weatherList = new List<WeatherInfo>();
