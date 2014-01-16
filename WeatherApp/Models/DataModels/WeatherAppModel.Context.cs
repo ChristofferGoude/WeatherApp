@@ -12,6 +12,9 @@ namespace WeatherApp.Models.DataModels
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Objects;
+    using System.Data.Objects.DataClasses;
+    using System.Linq;
     
     public partial class WeatherAppEntities : DbContext
     {
@@ -25,7 +28,70 @@ namespace WeatherApp.Models.DataModels
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<WeatherInfo> WeatherInfoes { get; set; }
+        public DbSet<Location> Location { get; set; }
+        public DbSet<WeatherInfo> WeatherInfo { get; set; }
+    
+        public virtual ObjectResult<Nullable<decimal>> AddWeather(Nullable<int> locationID, string location, string time, string description, string temp, string icon)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var locationParameter = location != null ?
+                new ObjectParameter("Location", location) :
+                new ObjectParameter("Location", typeof(string));
+    
+            var timeParameter = time != null ?
+                new ObjectParameter("Time", time) :
+                new ObjectParameter("Time", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var tempParameter = temp != null ?
+                new ObjectParameter("Temp", temp) :
+                new ObjectParameter("Temp", typeof(string));
+    
+            var iconParameter = icon != null ?
+                new ObjectParameter("Icon", icon) :
+                new ObjectParameter("Icon", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("AddWeather", locationIDParameter, locationParameter, timeParameter, descriptionParameter, tempParameter, iconParameter);
+        }
+    
+        public virtual int RemoveWeather(Nullable<int> locationID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RemoveWeather", locationIDParameter);
+        }
+    
+        public virtual int UpdateWeather(Nullable<int> locationID, string time, string description, string temp, string icon)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var timeParameter = time != null ?
+                new ObjectParameter("Time", time) :
+                new ObjectParameter("Time", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var tempParameter = temp != null ?
+                new ObjectParameter("Temp", temp) :
+                new ObjectParameter("Temp", typeof(string));
+    
+            var iconParameter = icon != null ?
+                new ObjectParameter("Icon", icon) :
+                new ObjectParameter("Icon", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateWeather", locationIDParameter, timeParameter, descriptionParameter, tempParameter, iconParameter);
+        }
     }
 }

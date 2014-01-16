@@ -52,6 +52,9 @@ namespace WeatherApp.Controllers
                     List<WeatherInfo> weatherList = new List<WeatherInfo>();
                     weatherList = weatherFinder.GetWeatherInfo(checkedLocation);
 
+                    _repository.AddWeather(weatherList);
+                    _repository.Save();
+
                     return View("Index", weatherList);
                 }
                 else
@@ -59,10 +62,10 @@ namespace WeatherApp.Controllers
                     return View("Search");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 string error = "This city was not found in the Geonames API";
-                ModelState.AddModelError(String.Empty, error);
+                ModelState.AddModelError(String.Empty, error + e.InnerException);
                 return View("Search");
             }
         }

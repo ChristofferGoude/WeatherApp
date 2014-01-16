@@ -4,14 +4,10 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="ModelsStoreContainer">
-          <EntitySet Name="Location" EntityType="Models.Store.Location" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="WeatherInfo" EntityType="Models.Store.WeatherInfo" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_WeatherInfo_Location" Association="Models.Store.FK_WeatherInfo_Location">
-            <End Role="Location" EntitySet="Location" />
-            <End Role="WeatherInfo" EntitySet="WeatherInfo" />
-          </AssociationSet>
+      <Schema Namespace="WeatherAppModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="WeatherAppModelStoreContainer">
+          <EntitySet Name="Location" EntityType="WeatherAppModel.Store.Location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WeatherInfo" EntityType="WeatherAppModel.Store.WeatherInfo" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
         <EntityType Name="Location">
           <Key>
@@ -32,26 +28,11 @@
           <Property Name="Description" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Temp" Type="varchar" Nullable="false" MaxLength="6" />
           <Property Name="Icon" Type="varchar" Nullable="false" MaxLength="60" />
+          <Property Name="Location" Type="varchar" Nullable="false" MaxLength="20" />
         </EntityType>
-        <Association Name="FK_WeatherInfo_Location">
-          <End Role="Location" Type="Models.Store.Location" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="WeatherInfo" Type="Models.Store.WeatherInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="LocationID" />
-            </Principal>
-            <Dependent Role="WeatherInfo">
-              <PropertyRef Name="LocationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="AddWeather" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="app">
           <Parameter Name="LocationID" Type="int" Mode="In" />
           <Parameter Name="Location" Type="varchar" Mode="In" />
-          <Parameter Name="Lat" Type="varchar" Mode="In" />
-          <Parameter Name="Lng" Type="varchar" Mode="In" />
           <Parameter Name="Time" Type="varchar" Mode="In" />
           <Parameter Name="Description" Type="varchar" Mode="In" />
           <Parameter Name="Temp" Type="varchar" Mode="In" />
@@ -71,14 +52,28 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="WeatherAppModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="WeatherAppEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="Locations" EntityType="Models.Location" />
-          <EntitySet Name="WeatherInfoes" EntityType="Models.WeatherInfo" />
-          <AssociationSet Name="FK_WeatherInfo_Location" Association="Models.FK_WeatherInfo_Location">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="WeatherInfo" EntitySet="WeatherInfoes" />
-          </AssociationSet>
+          <EntitySet Name="Location" EntityType="WeatherAppModel.Location" />
+          <EntitySet Name="WeatherInfo" EntityType="WeatherAppModel.WeatherInfo" />
+          <FunctionImport Name="AddWeather" ReturnType="Collection(Decimal)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="Location" Mode="In" Type="String" />
+            <Parameter Name="Time" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Temp" Mode="In" Type="String" />
+            <Parameter Name="Icon" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RemoveWeather">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateWeather">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="Time" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Temp" Mode="In" Type="String" />
+            <Parameter Name="Icon" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Location">
           <Key>
@@ -88,7 +83,6 @@
           <Property Name="Location1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Lat" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
           <Property Name="Lng" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="WeatherInfoes" Relationship="Models.FK_WeatherInfo_Location" FromRole="Location" ToRole="WeatherInfo" />
         </EntityType>
         <EntityType Name="WeatherInfo">
           <Key>
@@ -100,30 +94,16 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Temp" Type="String" Nullable="false" MaxLength="6" Unicode="false" FixedLength="false" />
           <Property Name="Icon" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Location" Relationship="Models.FK_WeatherInfo_Location" FromRole="WeatherInfo" ToRole="Location" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_WeatherInfo_Location">
-          <End Role="Location" Type="Models.Location" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="WeatherInfo" Type="Models.WeatherInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="LocationID" />
-            </Principal>
-            <Dependent Role="WeatherInfo">
-              <PropertyRef Name="LocationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="WeatherAppEntities">
-          <EntitySetMapping Name="Locations">
-            <EntityTypeMapping TypeName="Models.Location">
+        <EntityContainerMapping StorageEntityContainer="WeatherAppModelStoreContainer" CdmEntityContainer="WeatherAppEntities">
+          <EntitySetMapping Name="Location">
+            <EntityTypeMapping TypeName="WeatherAppModel.Location">
               <MappingFragment StoreEntitySet="Location">
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="Location1" ColumnName="Location" />
@@ -132,8 +112,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WeatherInfoes">
-            <EntityTypeMapping TypeName="Models.WeatherInfo">
+          <EntitySetMapping Name="WeatherInfo">
+            <EntityTypeMapping TypeName="WeatherAppModel.WeatherInfo">
               <MappingFragment StoreEntitySet="WeatherInfo">
                 <ScalarProperty Name="WeatherInfoID" ColumnName="WeatherInfoID" />
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
@@ -141,23 +121,35 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Temp" ColumnName="Temp" />
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="Models.WeatherInfo">
+            <EntityTypeMapping TypeName="WeatherAppModel.WeatherInfo">
               <ModificationFunctionMapping>
-                <UpdateFunction FunctionName="Models.Store.UpdateWeather">
+                <InsertFunction FunctionName="WeatherAppModel.Store.AddWeather">
+                  <ScalarProperty Name="Icon" ParameterName="Icon" />
+                  <ScalarProperty Name="Temp" ParameterName="Temp" />
+                  <ScalarProperty Name="Description" ParameterName="Description" />
+                  <ScalarProperty Name="Time" ParameterName="Time" />
+                  <ScalarProperty Name="Location" ParameterName="Location" />
+                  <ScalarProperty Name="LocationID" ParameterName="LocationID" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="WeatherAppModel.Store.UpdateWeather">
                   <ScalarProperty Name="Icon" ParameterName="Icon" Version="Current" />
                   <ScalarProperty Name="Temp" ParameterName="Temp" Version="Current" />
                   <ScalarProperty Name="Description" ParameterName="Description" Version="Current" />
                   <ScalarProperty Name="Time" ParameterName="Time" Version="Current" />
                   <ScalarProperty Name="LocationID" ParameterName="LocationID" Version="Current" />
                 </UpdateFunction>
-                <DeleteFunction FunctionName="Models.Store.RemoveWeather">
+                <DeleteFunction FunctionName="WeatherAppModel.Store.RemoveWeather">
                   <ScalarProperty Name="LocationID" ParameterName="LocationID" />
                 </DeleteFunction>
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddWeather" FunctionName="WeatherAppModel.Store.AddWeather" />
+          <FunctionImportMapping FunctionImportName="RemoveWeather" FunctionName="WeatherAppModel.Store.RemoveWeather" />
+          <FunctionImportMapping FunctionImportName="UpdateWeather" FunctionName="WeatherAppModel.Store.UpdateWeather" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

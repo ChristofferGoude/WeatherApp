@@ -8,5 +8,7 @@ namespace WeatherApp.Models.Repository
 {
     interface IRepository
     {
+        void AddWeather(List<WeatherInfo> weatherList);
+        void Save();
     }
 }

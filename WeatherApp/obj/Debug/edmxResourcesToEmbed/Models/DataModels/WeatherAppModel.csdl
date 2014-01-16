@@ -1,12 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="WeatherAppModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="WeatherAppEntities" p1:LazyLoadingEnabled="true">
-    <EntitySet Name="Locations" EntityType="Models.Location" />
-    <EntitySet Name="WeatherInfoes" EntityType="Models.WeatherInfo" />
-    <AssociationSet Name="FK_WeatherInfo_Location" Association="Models.FK_WeatherInfo_Location">
-      <End Role="Location" EntitySet="Locations" />
-      <End Role="WeatherInfo" EntitySet="WeatherInfoes" />
-    </AssociationSet>
+    <EntitySet Name="Location" EntityType="WeatherAppModel.Location" />
+    <EntitySet Name="WeatherInfo" EntityType="WeatherAppModel.WeatherInfo" />
+    <FunctionImport Name="AddWeather" ReturnType="Collection(Decimal)">
+      <Parameter Name="LocationID" Mode="In" Type="Int32" />
+      <Parameter Name="Location" Mode="In" Type="String" />
+      <Parameter Name="Time" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Temp" Mode="In" Type="String" />
+      <Parameter Name="Icon" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="RemoveWeather">
+      <Parameter Name="LocationID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateWeather">
+      <Parameter Name="LocationID" Mode="In" Type="Int32" />
+      <Parameter Name="Time" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Temp" Mode="In" Type="String" />
+      <Parameter Name="Icon" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Location">
     <Key>
@@ -16,7 +30,6 @@
     <Property Name="Location1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Lat" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
     <Property Name="Lng" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
-    <NavigationProperty Name="WeatherInfoes" Relationship="Models.FK_WeatherInfo_Location" FromRole="Location" ToRole="WeatherInfo" />
   </EntityType>
   <EntityType Name="WeatherInfo">
     <Key>
@@ -28,20 +41,6 @@
     <Property Name="Description" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Temp" Type="String" Nullable="false" MaxLength="6" Unicode="false" FixedLength="false" />
     <Property Name="Icon" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-    <NavigationProperty Name="Location" Relationship="Models.FK_WeatherInfo_Location" FromRole="WeatherInfo" ToRole="Location" />
+    <Property Name="Location" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
   </EntityType>
-  <Association Name="FK_WeatherInfo_Location">
-    <End Role="Location" Type="Models.Location" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="WeatherInfo" Type="Models.WeatherInfo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Location">
-        <PropertyRef Name="LocationID" />
-      </Principal>
-      <Dependent Role="WeatherInfo">
-        <PropertyRef Name="LocationID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

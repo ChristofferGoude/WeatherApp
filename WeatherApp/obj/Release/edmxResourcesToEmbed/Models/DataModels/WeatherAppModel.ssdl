@@ -1,8 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="WeatherAppModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="WeatherAppModelStoreContainer">
-    <EntitySet Name="Location" EntityType="WeatherAppModel.Store.Location" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="WeatherInfo" EntityType="WeatherAppModel.Store.WeatherInfo" store:Type="Tables" Schema="dbo" />
+<Schema Namespace="Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelsStoreContainer">
+    <EntitySet Name="Location" EntityType="Models.Store.Location" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WeatherInfo" EntityType="Models.Store.WeatherInfo" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_WeatherInfo_Location" Association="Models.Store.FK_WeatherInfo_Location">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="WeatherInfo" EntitySet="WeatherInfo" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Location">
     <Key>
@@ -23,11 +27,26 @@
     <Property Name="Description" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Temp" Type="varchar" Nullable="false" MaxLength="6" />
     <Property Name="Icon" Type="varchar" Nullable="false" MaxLength="60" />
-    <Property Name="Location" Type="varchar" Nullable="false" MaxLength="20" />
   </EntityType>
+  <Association Name="FK_WeatherInfo_Location">
+    <End Role="Location" Type="Models.Store.Location" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WeatherInfo" Type="Models.Store.WeatherInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="LocationID" />
+      </Principal>
+      <Dependent Role="WeatherInfo">
+        <PropertyRef Name="LocationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="AddWeather" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="app">
     <Parameter Name="LocationID" Type="int" Mode="In" />
     <Parameter Name="Location" Type="varchar" Mode="In" />
+    <Parameter Name="Lat" Type="varchar" Mode="In" />
+    <Parameter Name="Lng" Type="varchar" Mode="In" />
     <Parameter Name="Time" Type="varchar" Mode="In" />
     <Parameter Name="Description" Type="varchar" Mode="In" />
     <Parameter Name="Temp" Type="varchar" Mode="In" />

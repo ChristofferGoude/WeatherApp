@@ -218,6 +218,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Styles.css" />
+    <Content Include="Media\Pics\404.png" />
+    <Content Include="Media\Pics\body_bg.png" />
+    <Content Include="Media\Pics\title.png" />
     <EntityDeploy Include="Models\DataModels\WeatherAppModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>WeatherAppModel.Designer.cs</LastGenOutput>

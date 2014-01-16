@@ -14,7 +14,7 @@ namespace WeatherApp.Models.Webservices
         {
             //Create the list in which we will put all our weatherInfo objects.
             List<WeatherInfo> weatherList = new List<WeatherInfo>();
-
+            
             //Create a new XML document, create the string from user input, and load the XML.
             XmlDocument xml = new XmlDocument();
             String xmlString = String.Format("http://api.openweathermap.org/data/2.5/forecast/daily?lat={0}&lon={1}&units=metric&cnt=5&lang=en&mode=xml&app_id=850cd19d2459a0c93e80bb44d19a05b2", location.Lat, location.Lng);
@@ -27,10 +27,10 @@ namespace WeatherApp.Models.Webservices
             foreach(XmlNode item in xmlNodeList)
             {
                 WeatherInfo weatherItem = new WeatherInfo();
-
+             
                 //Set all weatherinformation
                 weatherItem.LocationID = location.LocationID;
-                weatherItem.Location = location;
+                weatherItem.Location = location.Location1;
                 weatherItem.Time = item.Attributes["day"].Value;
                 weatherItem.Description = item["symbol"].Attributes["name"].Value;
                 weatherItem.Icon = String.Format("http://openweathermap.org/img/w/{0}.png", item["symbol"].Attributes["var"].Value);

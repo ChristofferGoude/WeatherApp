@@ -10,9 +10,9 @@
         @foreach (var item in Model)
         {
             <div class="weatherItem">    
-                <h3>@item.Location</h3>
+                <h3>@item.Location.Location1</h3>
                 <p><b>Date: </b>@item.Time</p>
-                <p><b>Temp: </b>@item.Temperature° C</p>
+                <p><b>Temp: </b>@item.Temp° C</p>
                 <p><b>Conditions: </b></p>
                 <p>@item.Description</p>
                 <p><img src="@item.Icon" /></p>

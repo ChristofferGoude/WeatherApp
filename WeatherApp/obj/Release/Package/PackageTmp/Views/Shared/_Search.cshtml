@@ -1,16 +1,16 @@
-﻿@model WeatherApp.Models.Location
+﻿@model WeatherApp.ViewModels.LocationName
 
 <div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         <div>
-            @Html.LabelFor(model => model.City):
+            @Html.LabelFor(model => model.LocationString):
         </div>
         <div>
-            @Html.EditorFor(model => model.City, new { @class = "query" })
+            @Html.EditorFor(model => model.LocationString, new { @class = "query" })
             <input type="submit" value="Skicka" />
-            @Html.ValidationMessageFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.LocationString)
         </div>
         <div>
             

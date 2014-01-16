@@ -11,9 +11,12 @@ namespace WeatherApp.Models.Repository
         private bool _disposed = false;
         private WeatherAppEntities _entities = new WeatherAppEntities();
 
-        public void AddWeather()
+        public void AddWeather(List<WeatherInfo> weatherList)
         {
-
+            foreach (WeatherInfo item in weatherList)
+            {
+                _entities.AddWeather(item.LocationID, item.Location, item.Time, item.Description, item.Temp, item.Icon);
+            }
         }
 
         public void DeleteWeather(int locationID)

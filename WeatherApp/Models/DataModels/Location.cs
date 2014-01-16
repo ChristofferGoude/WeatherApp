@@ -14,16 +14,9 @@ namespace WeatherApp.Models
     
     public partial class Location
     {
-        public Location()
-        {
-            this.WeatherInfoes = new HashSet<WeatherInfo>();
-        }
-    
         public int LocationID { get; set; }
         public string Location1 { get; set; }
         public string Lat { get; set; }
         public string Lng { get; set; }
-    
-        public virtual ICollection<WeatherInfo> WeatherInfoes { get; set; }
     }
 }

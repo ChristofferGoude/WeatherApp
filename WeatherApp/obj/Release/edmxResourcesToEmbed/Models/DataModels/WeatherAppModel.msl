@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="WeatherAppModelStoreContainer" CdmEntityContainer="WeatherAppEntities">
-    <EntitySetMapping Name="Location">
-      <EntityTypeMapping TypeName="WeatherAppModel.Location">
+  <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="WeatherAppEntities">
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="Models.Location">
         <MappingFragment StoreEntitySet="Location">
           <ScalarProperty Name="LocationID" ColumnName="LocationID" />
           <ScalarProperty Name="Location1" ColumnName="Location" />
@@ -11,8 +11,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="WeatherInfo">
-      <EntityTypeMapping TypeName="WeatherAppModel.WeatherInfo">
+    <EntitySetMapping Name="WeatherInfoes">
+      <EntityTypeMapping TypeName="Models.WeatherInfo">
         <MappingFragment StoreEntitySet="WeatherInfo">
           <ScalarProperty Name="WeatherInfoID" ColumnName="WeatherInfoID" />
           <ScalarProperty Name="LocationID" ColumnName="LocationID" />
@@ -20,34 +20,22 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Temp" ColumnName="Temp" />
           <ScalarProperty Name="Icon" ColumnName="Icon" />
-          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
-      <EntityTypeMapping TypeName="WeatherAppModel.WeatherInfo">
+      <EntityTypeMapping TypeName="Models.WeatherInfo">
         <ModificationFunctionMapping>
-          <InsertFunction FunctionName="WeatherAppModel.Store.AddWeather">
-            <ScalarProperty Name="Icon" ParameterName="Icon" />
-            <ScalarProperty Name="Temp" ParameterName="Temp" />
-            <ScalarProperty Name="Description" ParameterName="Description" />
-            <ScalarProperty Name="Time" ParameterName="Time" />
-            <ScalarProperty Name="Location" ParameterName="Location" />
-            <ScalarProperty Name="LocationID" ParameterName="LocationID" />
-          </InsertFunction>
-          <UpdateFunction FunctionName="WeatherAppModel.Store.UpdateWeather">
+          <UpdateFunction FunctionName="Models.Store.UpdateWeather">
             <ScalarProperty Name="Icon" ParameterName="Icon" Version="Current" />
             <ScalarProperty Name="Temp" ParameterName="Temp" Version="Current" />
             <ScalarProperty Name="Description" ParameterName="Description" Version="Current" />
             <ScalarProperty Name="Time" ParameterName="Time" Version="Current" />
             <ScalarProperty Name="LocationID" ParameterName="LocationID" Version="Current" />
           </UpdateFunction>
-          <DeleteFunction FunctionName="WeatherAppModel.Store.RemoveWeather">
+          <DeleteFunction FunctionName="Models.Store.RemoveWeather">
             <ScalarProperty Name="LocationID" ParameterName="LocationID" />
           </DeleteFunction>
         </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="AddWeather" FunctionName="WeatherAppModel.Store.AddWeather" />
-    <FunctionImportMapping FunctionImportName="RemoveWeather" FunctionName="WeatherAppModel.Store.RemoveWeather" />
-    <FunctionImportMapping FunctionImportName="UpdateWeather" FunctionName="WeatherAppModel.Store.UpdateWeather" />
   </EntityContainerMapping>
 </Mapping>

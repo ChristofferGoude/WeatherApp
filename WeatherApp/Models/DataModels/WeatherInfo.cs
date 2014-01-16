@@ -20,7 +20,6 @@ namespace WeatherApp.Models
         public string Description { get; set; }
         public string Temp { get; set; }
         public string Icon { get; set; }
-    
-        public virtual Location Location { get; set; }
+        public string Location { get; set; }
     }
 }
